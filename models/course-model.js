@@ -16,6 +16,7 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  //將userSchema instructor的資料儲存在這
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
