@@ -4,7 +4,7 @@
 
 1.Node.js、express  
 2.postman  
-3.Joi  
+3.npm Joi 確認數值是否正確以及客製化 error message  
 4.JWT
 
 ---
