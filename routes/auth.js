@@ -1,9 +1,11 @@
 const res = require("express/lib/response");
+const { func } = require("joi");
 
 const router = require("express").Router();
 const registerValidation = require("../vaildation").registerValidation;
 const loginValidation = require("../vaildation").loginValidation;
 const User = require("../models").userModel;
+const jwt = require("jsonwebtoken");
 
 //有動作即console.log訊息
 router.use((req, res, next) => {
@@ -50,4 +52,36 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/login", (req, res) => {
+  //check the validation of data
+  const { error } = loginValidation(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+  User.findOne({ email: req.body.email }, function (err, user) {
+    if (err) {
+      res.status(400).send(err);
+    }
+    if (!user) {
+      res.status(401).send("This user is not found.");
+    } else {
+      user.comparePassword(req.body.password, function (err, isMatch) {
+        if (err) {
+          return res.status(400).send(err);
+        }
+        if (isMatch) {
+          const tokenObject = { _id: user._id, email: user.email };
+          const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
+          res.send({ success: "true", token: "JWT " + token, user });
+        } else {
+          res.status(401).send("Wrong Password");
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;
+
+//123456@gmail.com
+//"JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjk3ODlkNGE3NmJmZjljMDIzYmFkNzYiLCJlbWFpbCI6IjEyMzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2NTQwOTg0MDZ9.uzt6wD_u49OaPBSsup8YqZ7fBsxol7V-MYDUUqbR41M"

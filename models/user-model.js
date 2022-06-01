@@ -43,7 +43,7 @@ userSchema.methods.isInstructor = function () {
 //hash password
 userSchema.pre("save", async function (next) {
   if (this.isModified("password") || this.isNew) {
-    const hash = bcrypt.hash(this.password, 10);
+    const hash = await bcrypt.hash(this.password, 10);
     this.password = hash;
     next();
   } else {
