@@ -85,5 +85,9 @@ router.post("/login", (req, res) => {
 
 module.exports = router;
 
+/*"title":"course1",
+    "description":"course1 test",
+    "price":"500"*/
+
 //123456@gmail.com
 //"JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mjk3ODlkNGE3NmJmZjljMDIzYmFkNzYiLCJlbWFpbCI6IjEyMzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2NTQwOTg0MDZ9.uzt6wD_u49OaPBSsup8YqZ7fBsxol7V-MYDUUqbR41M"
