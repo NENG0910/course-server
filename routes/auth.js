@@ -1,9 +1,11 @@
-const res = require("express/lib/response");
+const express = require("express");
+const app = express();
 const { func } = require("joi");
 
 const router = require("express").Router();
 const registerValidation = require("../vaildation").registerValidation;
 const loginValidation = require("../vaildation").loginValidation;
+const courseValidation = require("../vaildation").courseValidation;
 const User = require("../models").userModel;
 const jwt = require("jsonwebtoken");
 
