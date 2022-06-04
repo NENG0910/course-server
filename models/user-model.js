@@ -39,6 +39,10 @@ userSchema.methods.isInstructor = function () {
   return this.role == "instructor";
 };
 
+userSchema.methods.isAdmin = function () {
+  return this.role == "admin";
+};
+
 //mongoose middleware
 //hash password
 userSchema.pre("save", async function (next) {
