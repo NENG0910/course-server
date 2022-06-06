@@ -1,6 +1,6 @@
 ## Course 後端
 
-## 學習目標:
+## 使用工具:
 
 1.Node.js、express  
 2.postman  
@@ -8,5 +8,6 @@
 4.JWT
 5.RESTful API
 6.MongoDB Atlas
+7.CORS
 
 ---
