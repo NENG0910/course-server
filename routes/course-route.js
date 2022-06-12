@@ -76,7 +76,7 @@ router.get("/:_id", (req, res) => {
 });
 
 //學生註冊課程enroll
-router.post("/courses/enroll/:_id", async (req, res) => {
+router.post("/enroll/:_id", async (req, res) => {
   let { _id } = req.params;
   let { user_id } = req.body;
   try {
