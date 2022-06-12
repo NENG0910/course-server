@@ -79,8 +79,10 @@ router.get("/:_id", (req, res) => {
 router.post("/enroll/:_id", async (req, res) => {
   let { _id } = req.params;
   let { user_id } = req.body;
+
   try {
-    let course = await Course.find({ _id });
+    //用findOne是因為findOne找到的是一個Object，如果是find就是找到一個array
+    let course = await Course.findOne({ _id });
     course.students.push(user_id);
     await course.save();
     res.send("Enroll this course");
