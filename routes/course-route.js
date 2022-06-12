@@ -24,6 +24,7 @@ router.get("/", (req, res) => {
     });
 });
 
+//Course 顯示instructor的post course
 router.get("/instructor/:_instructor_id", (req, res) => {
   let { _instructor_id } = req.params;
   Course.find({ instructor: _instructor_id })
@@ -33,6 +34,32 @@ router.get("/instructor/:_instructor_id", (req, res) => {
     })
     .catch(() => {
       res.status(500).send("ERROR! Can not get course data.");
+    });
+});
+
+//Course顯示student的course
+router.get("/student/:_student_id", (req, res) => {
+  let { _student_id } = req.params;
+  Course.find({ students: _student_id })
+    .populate("instructor", ["username", "email"])
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch(() => {
+      res.status(500).send("ERROR! Can not get course data.");
+    });
+});
+
+//搜尋課程
+router.get("/findByName/:name", (req, res) => {
+  let { name } = req.params;
+  Course.find({ title: name })
+    .populate("instructor", ["username", "email"])
+    .then((course) => {
+      res.status(200).send(course);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
 });
 
