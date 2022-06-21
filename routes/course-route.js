@@ -8,6 +8,7 @@ const User = require("../models").userModel;
 //middleware
 router.use((req, res, next) => {
   console.log("A request is comming in API");
+
   next();
 });
 
@@ -37,9 +38,10 @@ router.get("/instructor/:_instructor_id", (req, res) => {
     });
 });
 
-//Course顯示student的course
+//Profile顯示student的course
 router.get("/student/:_student_id", (req, res) => {
   let { _student_id } = req.params;
+  console.log(req.params);
   Course.find({ students: _student_id })
     .populate("instructor", ["username", "email"])
     .then((data) => {
@@ -156,10 +158,10 @@ router.patch("/:_id", async (req, res) => {
 
 router.delete("/:_id", async (req, res) => {
   //validate the inputs before making a new course
-  const { error } = courseValidation(req.body);
-  if (error) {
-    return res.status(400).send(error.details[0].message);
-  }
+  // const { error } = courseValidation(req.body);
+  // if (error) {
+  //   return res.status(400).send(error.details[0].message);
+  // }
   let { _id } = req.params;
   const course = await Course.findOne({ _id });
   if (!course) {
