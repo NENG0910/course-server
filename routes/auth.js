@@ -72,9 +72,10 @@ router.post("/login", (req, res) => {
           return res.status(400).send(err);
         }
         if (isMatch) {
+          const startTime = Date.now();
           const tokenObject = { _id: user._id, email: user.email };
           const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
-          res.send({ success: "true", token: "JWT " + token, user });
+          res.send({ success: "true", token: "JWT " + token, user, startTime });
         } else {
           res.status(401).send("Wrong Password");
         }
